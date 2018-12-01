@@ -1,0 +1,27 @@
+{
+  "name": "is-pwa",
+  "description": "Checks to see if the specified URL has a manifest file.",
+  "version": "1.0.0",
+  "author": "Peter deHaan <peter@deseloper.com> (https://about.me/peterdehaan)",
+  "bin": "cli.js",
+  "bugs": {
+    "url": "https://github.com/pdehaan/is-pwa/issues"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0-rc.2",
+    "got": "9.3.2"
+  },
+  "homepage": "https://github.com/pdehaan/is-pwa#readme",
+  "keywords": [],
+  "license": "MPL-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdehaan/is-pwa.git"
+  },
+  "scripts": {
+    "format": "npx prettier *.js --write",
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
