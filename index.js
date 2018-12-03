@@ -26,12 +26,9 @@ async function fetchUrl(uri, opts = {}) {
   return res.body;
 }
 
-async function fetchSchema() {
-  return fetchUrl("http://json.schemastore.org/web-manifest", {json: true});
-}
-
 async function lintManifest(manifest) {
-  const schema = await fetchSchema();
+  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {json: true});
+  console.log(schema);
   const ajv = new Ajv({allErrors: true});
   const valid = ajv.validate(schema, manifest);
   if (!valid) {
