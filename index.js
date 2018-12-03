@@ -1,5 +1,6 @@
 const { URL } = require("url");
 
+const Ajv = require("ajv");
 const got = require("got").get;
 const cheerio = require("cheerio");
 
@@ -23,7 +24,23 @@ async function fetchUrl(uri, opts = {}) {
   return res.body;
 }
 
+async function lintManifest(manifest) {
+  // Set the `Accept: "*/*"` header to avoid some 406 errors from schemastore.org/IIS.
+  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {
+    json: true,
+    headers: { Accept: "*/*" }
+  });
+
+  const ajv = new Ajv({ allErrors: true, schemaId: "auto" });
+  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"));
+  const valid = ajv.validate(schema, manifest);
+  if (!valid) {
+    return ajv.errors;
+  }
+}
+
 module.exports = {
   isPWA,
-  fetchUrl
+  fetchUrl,
+  lintManifest
 };

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { isPWA } = require("./index");
+const { isPWA, lintManifest } = require("./index");
 
 const [, , argv] = process.argv;
 
@@ -12,6 +12,13 @@ main(argv).catch(err => {
 
 async function main() {
   const manifestJson = await isPWA(argv);
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(manifestJson, null, 2));
+  if (manifestJson) {
+    // eslint-disable-next-line no-console
+    console.log(manifestJson);
+    const errors = await lintManifest(manifestJson);
+    if (errors) {
+      // eslint-disable-next-line no-console
+      console.error(errors);
+    }
+  }
 }

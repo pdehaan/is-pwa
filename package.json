@@ -8,6 +8,7 @@
     "url": "https://github.com/pdehaan/is-pwa/issues"
   },
   "dependencies": {
+    "ajv": "6.6.1",
     "cheerio": "1.0.0-rc.2",
     "got": "9.3.2"
   },
