@@ -21,5 +21,4 @@ async function main() {
       console.error(errors);
     }
   }
-
 }

@@ -26,10 +26,13 @@ async function fetchUrl(uri, opts = {}) {
 
 async function lintManifest(manifest) {
   // Set the `Accept: "*/*"` header to avoid some 406 errors from schemastore.org/IIS.
-  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {json: true, headers: {"Accept": "*/*"}});
+  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {
+    json: true,
+    headers: { Accept: "*/*" }
+  });
 
-  const ajv = new Ajv({allErrors: true, schemaId: "auto"});
-  ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+  const ajv = new Ajv({ allErrors: true, schemaId: "auto" });
+  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"));
   const valid = ajv.validate(schema, manifest);
   if (!valid) {
     return ajv.errors;
