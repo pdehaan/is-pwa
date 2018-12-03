@@ -49,11 +49,3 @@ $ npx pdehaan/is-pwa https://github.com
   ]
 }
 ```
-
-If the specified site does NOT have a manifest file, `undefined` is returned:
-
-```sh
-$ npx pdehaan/is-pwa https://google.com
-
-undefined
-```

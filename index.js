@@ -14,8 +14,6 @@ async function isPWA(uri) {
   if (manifest && manifest.attr("href")) {
     manifest = new URL(manifest.attr("href"), uri);
     const manifestJson = await fetchUrl(manifest, { json: true });
-    const res = await lintManifest(manifestJson);
-    console.log(res);
     return manifestJson;
   }
   return;
@@ -27,9 +25,11 @@ async function fetchUrl(uri, opts = {}) {
 }
 
 async function lintManifest(manifest) {
-  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {json: true});
-  console.log(schema);
-  const ajv = new Ajv({allErrors: true});
+  // Set the `Accept: "*/*"` header to avoid some 406 errors from schemastore.org/IIS.
+  const schema = await fetchUrl("http://json.schemastore.org/web-manifest", {json: true, headers: {"Accept": "*/*"}});
+
+  const ajv = new Ajv({allErrors: true, schemaId: "auto"});
+  ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
   const valid = ajv.validate(schema, manifest);
   if (!valid) {
     return ajv.errors;
@@ -38,5 +38,6 @@ async function lintManifest(manifest) {
 
 module.exports = {
   isPWA,
-  fetchUrl
+  fetchUrl,
+  lintManifest
 };
