@@ -13,5 +13,6 @@ main(argv).catch(err => {
 async function main() {
   const manifestJson = await isPWA(argv);
   // eslint-disable-next-line no-console
-  console.log(JSON.stringify(manifestJson, null, 2));
+  // console.log(JSON.stringify(manifestJson, null, 2));
+  console.log(manifestJson);
 }
