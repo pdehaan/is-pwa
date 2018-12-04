@@ -12,6 +12,9 @@
     "cheerio": "1.0.0-rc.2",
     "got": "9.3.2"
   },
+  "devDependencies": {
+    "alexa-top-sites": "2.0.1"
+  },
   "homepage": "https://github.com/pdehaan/is-pwa#readme",
   "keywords": [],
   "license": "MPL-2.0",
@@ -24,6 +27,7 @@
     "format": "npx prettier *.js --write",
     "lint": "npx eslint .",
     "pretest": "npm run lint",
-    "test": "node test"
+    "test": "node test",
+    "top-sites": "node top-sites"
   }
 }
